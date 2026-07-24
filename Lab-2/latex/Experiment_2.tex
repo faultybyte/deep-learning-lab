@@ -252,7 +252,7 @@ Training Time & 1.3 min & 1.9 min \\
 \label{fig:class_dist}
 \end{figure}
 
-\textbf{Inference:} The bar chart confirms that the Fashion-MNIST dataset is perfectly balanced, containing exactly 6,000 training samples per class across all 10 categories. Therefore, baseline accuracy serves as an unbiased metric.
+\textbf{Inference:} The bar chart confirms that the Fashion-MNIST dataset is perfectly balanced, containing exactly 6,000 training samples per class across all 10 categories.
 
 \subsection{Training vs. Validation Accuracy}
 \begin{figure}[H]
@@ -262,7 +262,7 @@ Training Time & 1.3 min & 1.9 min \\
 \label{fig:acc_curve}
 \end{figure}
 
-\textbf{Inference:} Training accuracy continually increases towards 0.94, whereas validation accuracy plateaus near 0.88 after epoch 5. This plateau indicates that the network reaches its optimal generalization capacity early, beyond which further training yields diminishing returns.
+\textbf{Inference:} Training accuracy continually increases towards 0.94, whereas validation accuracy plateaus near 0.88 after epoch 5. This plateau indicates that the model reaches its optimal generalization capacity early, beyond which further training yields diminishing returns.
 
 \subsection{Training vs. Validation Loss}
 \begin{figure}[H]
@@ -272,7 +272,7 @@ Training Time & 1.3 min & 1.9 min \\
 \label{fig:loss_curve}
 \end{figure}
 
-\textbf{Inference:} Training loss decreases smoothly toward 0.16, while validation loss bottoms out at epoch 5 and gradually rises to 0.43. This widening gap confirms the onset of overfitting in later epochs.
+\textbf{Inference:} Training loss decreases smoothly toward 0.16, while validation loss bottoms out at epoch 5 and gradually rises to 0.43. This widening gap confirms the start of overfitting in later epochs.
 
 \subsection{Confusion Matrix}
 \begin{figure}[H]
@@ -282,7 +282,7 @@ Training Time & 1.3 min & 1.9 min \\
 \label{fig:confusion_matrix}
 \end{figure}
 
-\textbf{Inference:} The model shows high accuracy on distinct classes like Trousers (980) and Bags (970), but frequently confuses visually similar upper-body garments like Shirts, T-shirts, and Pullovers. This reflects the limitation of 1D flattened dense layers in capturing complex, overlapping spatial textures.
+\textbf{Inference:} The model shows high accuracy on distinct classes like Trousers (980) and Bags (970), but frequently confuses visually similar upper-body garments like Shirts, T-shirts, and Pullovers. This shows the limitation of 1D flattened dense layers in capturing complex, overlapping spatial textures.
 
 \subsection{Hyperparameter Search Results}
 \begin{figure}[H]
@@ -292,7 +292,7 @@ Training Time & 1.3 min & 1.9 min \\
 \label{fig:hp_results}
 \end{figure}
 
-\textbf{Inference:} CV accuracy varies significantly between 0.65 and 0.89 across trials, demonstrating high model sensitivity to hyperparameter choices. Sub-optimal configurations (trials 6 and 7) dropped performance sharply, while optimal parameters consistently achieved peak accuracies near 0.89.
+\textbf{Inference:} CV accuracy varies significantly between 0.65 and 0.89 across trials, this means that the model is sensitive to the hyperparameter choices. Sub-optimal configurations (trials 6 and 7) dropped performance sharply, while optimal parameters consistently achieved peak accuracies near 0.89.
 
 \subsection{Best Model Accuracy Comparison}
 \begin{figure}[H]
@@ -302,7 +302,7 @@ Training Time & 1.3 min & 1.9 min \\
 \label{fig:model_comp}
 \end{figure}
 
-\textbf{Inference:} Automated hyperparameter optimization improved test accuracy from 0.8497 (baseline) to 0.8726. This 2.29\% performance lift proves that systematically tuning parameters like layer width, learning rate, and batch size enhances model generalization.
+\textbf{Inference:} Automated hyperparameter optimization improved test accuracy from 0.8497 (baseline) to 0.8726. This 2.29\% performance lift proves that tuning parameters like layer width, learning rate, and batch size enhances model generalization.
 
 \section*{10. Discussion}
 
@@ -317,10 +317,10 @@ Training Time & 1.3 min & 1.9 min \\
     Yes. Test accuracy increased from 84.97\% (baseline) to 87.26\%, proving that tuning layer width, activation functions, and regularization improves overall model generalization.
 
     \item \textbf{Which hyperparameter had the greatest impact?} \\
-    The optimizer and learning rate had the largest impact. High learning rates (e.g., 0.1) or basic SGD struggled to converge, whereas Adam at 0.001 consistently delivered peak cross-validation accuracy.
+    The optimizer and learning rate had the largest impact. High learning rates (e.g., 0.1) or SGD struggled to converge, whereas Adam at 0.001 consistently delivered peak CV accuracy.
 
     \item \textbf{Compare Grid Search and Randomized Search.} \\
-    Grid Search checks every possible combination, guaranteeing the exact best setup in the grid but taking significantly longer. Randomized Search tests a random sample of combinations, finding a nearly identical top-performing setup in a fraction of the time.
+    Grid Search checks every possible combination, guaranteeing the exact best setup in the grid but it takes significantly longer to finish. Randomized Search tests a random sample of combinations, finding a nearly identical top performing setup in a fraction of the time, but doesn't guarantee the best hyperparameters.
 
     \item \textbf{Recommend the best MLP configuration.} \\
     The recommended setup for Fashion-MNIST is a single hidden layer with 256 units, Tanh activation, and 0.2 Dropout, trained using the Adam optimizer ($\text{lr} = 0.001$) with a batch size of 64 for 20 epochs.
