@@ -412,7 +412,68 @@ F1-score & 0.9921 \\ \hline
 
 %----------------------------------------------------------
 
-\section*{11. Discussion \& Analysis}
+\section*{11. Logic Gates in Perceptron}
+
+The Single Layer Perceptron was trained on four fundamental logical operations: AND, OR, NOT, and XOR. Each gate dataset represents a specific geometric mapping in 1D or 2D space.
+
+\subsection*{Experimental Configurations and Truth Tables}
+The binary logic conditions are mapped to the perceptron inputs such that Logic \texttt{0} corresponds to $0$ and Logic \texttt{1} corresponds to $1$. Training was conducted using a learning rate ($\eta$) of $0.1$ for a maximum boundary threshold of 4 epochs. The configurations and truth tables for each functional test are detailed below:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{cc|cccc}
+\toprule
+\multicolumn{2}{c|}{\textbf{Inputs}} & \multicolumn{4}{c}{\textbf{Target Output ($y$)}}\\
+\textbf{Input $X_1$} & \textbf{Input $X_2$} & \textbf{AND Gate} & \textbf{OR Gate} & \textbf{NOT Gate ($X_1$ only)} & \textbf{XOR Gate} \\
+\midrule
+0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 1 & -- & 1 \\
+1 & 0 & 0 & 1 & 0 & 1 \\
+1 & 1 & 1 & 1 & -- & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Convergence and Boundary Visualizations}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{AND_Gate_epochs.eps}
+    \caption{AND Gate: Decision Boundary Progression across Epochs.}
+    \label{fig:gate_and}
+\end{figure}
+\textbf{Interpretation:} The AND gate is a linearly separable function. The points are mapped in $2\text{D}$ space where class 1 exists solely at $(1,1)$. The perceptron updates its internal weight vector from the zero-state initialization and successfully isolates the true high-state class, achieving convergence.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{OR_Gate_epochs.eps}
+    \caption{OR Gate: Decision Boundary Progression across Epochs.}
+    \label{fig:gate_or}
+\end{figure}
+\textbf{Interpretation:} The OR gate configuration also exhibits strict linear separability. The zero-state true condition occupies $(0,0)$, while all other coordinates evaluate to class 1.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{NOT_Gate_epochs.eps}
+    \caption{NOT Gate: Decision Boundary Progression across Epochs.}
+    \label{fig:gate_not}
+\end{figure}
+\textbf{Interpretation:} The NOT gate operates as a single-input system. The boundary is a distinct scalar value on the real axis ($X_1$). The single weight adjusts dynamically, shifting the decision split line cleanly between the input coordinates $0$ and $1$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{XOR_Gate_epochs.eps}
+    \caption{XOR Gate: Non-Convergence and Boundary Oscillation.}
+    \label{fig:gate_xor}
+\end{figure}
+\textbf{Interpretation:} This image shows the failure of a Single Layer Perceptron when dealing with non-linearly separable mappings.
+
+The decision boundary rotates and shifts in an ongoing cycle across the entire training duration. Correcting the network parameters to correctly classify one pair of coordinates directly ruins the classification for the opposing pair, trapping the optimization loops in a state of permanent instability.
+
+%----------------------------------------------------------
+
+\section*{12. Discussion \& Analysis}
 
 \subsection*{Comparative Study of Activation Functions}
 The step function works for the linearly separable data as it just maps one side of the line to class 0 and the other to class 1. However the step function won't be suitable for deep neural networks as it is not differentiable at 0. This is important as deep learning networks rely on the backpropagation which requires the activation function to be differentiable.
@@ -437,12 +498,12 @@ Feature scaling makes sure that all the features are on the same scale. This ens
 
 %----------------------------------------------------------
 
-\section*{12. Conclusion}
-In this experiment, a Single Layer Perceptron was successfully implemented entirely from scratch to handle real-world binary classification problems, like finding forged banknotes using the Banknote Authentication Dataset.
+\section*{13. Conclusion}
+In this experiment, a Single Layer Perceptron was successfully implemented entirely from scratch to handle real-world binary classification problems, like finding forged banknotes using the Banknote Authentication Dataset. It was also demonstrated how a Single Layer Perceptron works for basic logic gates like AND, OR, and NOT, but not for gates like XOR which require a non-linear decision boundary.
 
 %----------------------------------------------------------
 
-\section*{13. References}
+\section*{14. References}
 
 \begin{enumerate}
 \item F. Rosenblatt, ``The Perceptron,'' \emph{Psychological Review}, 1958.
