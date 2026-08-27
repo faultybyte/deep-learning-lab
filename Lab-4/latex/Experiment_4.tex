@@ -846,10 +846,10 @@ ResNet50 & 24,114,826 & 32.16\% & 2.16 min \\
 
 \begin{enumerate}[label=\textbf{\arabic*.}]
     \item \textbf{Implement Transfer Learning Using VGG16} \\
-    A custom classification head was attached to the pretrained VGG16 convolutional base: $\text{GlobalAveragePooling2D} \rightarrow \text{Dense}(256, \text{ReLU}) \rightarrow \text{Dropout}(0.3) \rightarrow \text{Dense}(10, \text{Softmax})$. In the initial phase, all 14.7M base parameters were frozen, training only the 133K top classifier parameters using the Adam optimizer ($\text{lr} = 0.001$) for 10 epochs. The model reached a validation accuracy of $61.08\%$.
+    A custom classification head was attached to the pretrained VGG16 convolutional base: $\text{GlobalAveragePooling2D} \rightarrow \text{Dense}(256, \text{ReLU}) \rightarrow \text{Dropout}(0.3) \rightarrow \text{Dense}(10, \text{Softmax})$. In the initial phase, all 14.7M base parameters were frozen, training only the 133K top classifier parameters using the Adam optimizer ($\text{lr} = 0.001$) for 10 epochs. The model reached a validation accuracy of $71.19\%$.
 
     \item \textbf{Repeat the Experiment Using ResNet50} \\
-    The transfer learning pipeline was evaluated with a pretrained ResNet-50 backbone. ResNet-50 utilizes 50 layers composed of residual bottleneck blocks with identity skip connections ($\sim$25.6M parameters). Transfer learning with ResNet-50 achieved an accuracy of $76.40\%$ on CIFAR-10 in 4.8 minutes, outperforming the frozen VGG16 baseline due to deeper multi-scale feature hierarchies and residual gradient propagation.
+    The transfer learning pipeline was evaluated with a pretrained ResNet-50 backbone. ResNet-50 utilizes 50 layers composed of residual bottleneck blocks with identity skip connections ($\sim$25.6M parameters). Transfer learning with ResNet-50 achieved an accuracy of $32.16\%$ on CIFAR-10 in 4.8 minutes, this low accuracy was due to lack of image preprocessing required for ResNet.
 
     \item \textbf{Compare Adam and SGD Optimizers} \\
     The Adam optimizer ($\text{lr} = 0.001$) and SGD with momentum ($\text{lr} = 0.01, \beta = 0.9$) were evaluated under identical architectures:
@@ -867,7 +867,7 @@ ResNet50 & 24,114,826 & 32.16\% & 2.16 min \\
     \hline
     Phase 1: Frozen Feature Extractor & $61.08\%$ & $1.1276$ & $0.001$ \\
     \hline
-    Phase 2: Fine-Tuned (Block 5 Unfrozen) & $71.90\%$ & $1.3688$ & $0.0001$ \\
+    Phase 2: Fine-Tuned (Block 5 Unfrozen) & $71.28\%$ & $1.3688$ & $0.0001$ \\
     \hline
     \end{tabular}
     \end{center}
@@ -890,17 +890,17 @@ ResNet50 & 24,114,826 & 32.16\% & 2.16 min \\
     \hline
     \textbf{Model} & \textbf{Depth} & \textbf{Parameters} & \textbf{Accuracy} & \textbf{Key Architectural Trait} \\
     \hline
-    LeNet-5 & 7 & 60K & $64.85\%$ & $5\times5$ filters, average pooling \\
+    LeNet-5 & 7 & 60K & $53.27\%$ & $5\times5$ filters, average pooling \\
     \hline
-    AlexNet & 8 & 61M & $74.20\%$ & ReLU, Dropout, GPU training \\
-    \hline
+    AlexNet & 8 & 61M & $74.81\%$ & ReLU, Dropout, GPU training \\
     \hline
     GoogleNet & 22 & 6.8M & $73.29\%$ & Inception multi-scale modules, $1\times1$ bottlenecks \\
-    ResNet-50 & 50 & 25 & $76.40\%$ & Residual skip connections \\
+    \hline
+    ResNet-50 & 50 & 25M & $32.16\%$ & Residual skip connections \\
     \hline
     \end{tabular}
     \end{center}
-    ResNet-50 achieved the highest classification accuracy with fewer parameters than AlexNet, proving the superiority of deep residual bottleneck topologies over shallow or wide architectures.
+    AlexNet achieved the highest accuracy and ResNet provided the lowest probably due to the input images not being in its required format.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
